@@ -33,6 +33,20 @@ public class IntegrationTests {
     }
 
     @Test
+    public void WhenRemoveItemThenBasketTotalPriceIsReduced() {
+        Basket basket = new Basket();
+        Menu mainMenu = new MainMenu(basket, new NullTextDisplay());
+        Menu addItemMenu = mainMenu.chooseOption(1);
+        mainMenu = addItemMenu.chooseOption(1);         // Coffee
+        addItemMenu = mainMenu.chooseOption(1);
+        mainMenu = addItemMenu.chooseOption(2);         // Tea
+        Menu removeItemMenu = mainMenu.chooseOption(2);
+        mainMenu = removeItemMenu.chooseOption(1);      // Remove coffee
+        
+        Assert.assertEquals(149, basket.getTotalPrice());
+    }
+
+    @Test
     public void WhenOrderIsCompletedThenBasketIsEmpty() {
         Basket basket = new Basket();
         Menu mainMenu = new MainMenu(basket, new NullTextDisplay());
